@@ -1,4 +1,4 @@
-## ://www.encodeproject.org/search/?type=experiment&assay_term_name=ChIP-seq&assembly=hg19&target.investigated_as=transcription%20factor&files.file_type=bam&month_released=September,%202012ttps://www.encodeproject.org/search/?type=experiment&assay_term_name=ChIP-seq&assembly=hg19
+## https://www.encodeproject.org/search/?type=experiment&assay_term_name=ChIP-seq&assembly=hg19&target.investigated_as=transcription%20factor&files.file_type=bam&month_released=September,%202012
 
 import requests
 import boto
