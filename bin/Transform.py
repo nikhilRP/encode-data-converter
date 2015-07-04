@@ -1,4 +1,4 @@
-## https://www.encodeproject.org/search/?type=experiment&assay_term_name=ChIP-seq&assembly=hg19
+## ://www.encodeproject.org/search/?type=experiment&assay_term_name=ChIP-seq&assembly=hg19&target.investigated_as=transcription%20factor&files.file_type=bam&month_released=September,%202012ttps://www.encodeproject.org/search/?type=experiment&assay_term_name=ChIP-seq&assembly=hg19
 
 import requests
 import boto
@@ -132,7 +132,7 @@ def main():
     )
     #parser.add_argument('--encode-url', help="ENCODE assay URL", required=True)
     args = parser.parse_args()
-    encode_url = 'https://www.encodeproject.org/search/?type=experiment&assay_term_name=ChIP-seq&assembly=hg19'
+    encode_url = 'https://www.encodeproject.org/search/?type=experiment&assay_term_name=ChIP-seq&assembly=hg19&target.investigated_as=transcription%20factor&files.file_type=bam&month_released=September,%202012'
     if encode_url:
         for exp in get_assay_JSON(encode_url):
             for f in exp.get('files', None):

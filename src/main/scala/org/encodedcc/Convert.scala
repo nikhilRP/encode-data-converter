@@ -24,12 +24,11 @@ class Convert extends ADAMPlugin[AlignmentRecord, Tuple2[String, Int]] with Seri
        
      val referenceNames = referenceCounts.collect().toMap
      for(reference <- referenceNames) {
-	if(reference._1 != "unmapped") {
-        	def overlapsQuery(read: AlignmentRecord): Boolean = 
-          		read.getReadMapped && read.getContig.getContigName.toString == reference._1
-        	val rdd = reads.filter(overlapsQuery)
-        	rdd.adamParquetSave("/user/nikhilrp/encoded-data/hg19/" + reference._1 + "/" + args)
-	}
+       if(reference._1 != "unmapped") {
+         def overlapsQuery(read: AlignmentRecord): Boolean = read.getReadMapped && read.getContig.getContigName.toString == reference._1
+         val rdd = reads.filter(overlapsQuery).repartition(1)
+         rdd.adamParquetSave("/user/nikhilrp/encoded-data/hg19/" + reference._1 + "/" + args)
+       }
      }
      return referenceCounts
    }
