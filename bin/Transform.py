@@ -1,4 +1,4 @@
-# https://www.encodeproject.org/search/?type=experiment&month_released=December,%202014&assay_term_name=ChIP-seq&month_released=September,%202014&month_released=February,%202014&month_released=June,%202015&month_released=March,%202014&month_released=October,%202014&month_released=November,%202014&month_released=February,%202015&month_released=April,%202014&replicates.library.biosample.donor.organism.scientific_name=Mus%20musculus&files.file_type=bam
+# https://www.encodeproject.org/search/?type=experiment&month_released=December,%202014&assay_term_name=ChIP-seq&month_released=September,%202014&month_released=February,%202014&month_released=June,%202015&month_released=March,%202014&month_released=October,%202014&month_released=November,%202014&month_released=February,%202015&month_released=April,%202014&replicates.library.biosample.donor.organism.scientific_name=Mus%20musculus&files.file_type=bam&assembly=mm10
 
 import requests
 import boto
@@ -132,7 +132,7 @@ def main():
     )
     #parser.add_argument('--encode-url', help="ENCODE assay URL", required=True)
     args = parser.parse_args()
-    encode_url = 'https://www.encodeproject.org/search/?type=experiment&month_released=December,%202014&assay_term_name=ChIP-seq&month_released=September,%202014&month_released=February,%202014&month_released=June,%202015&month_released=March,%202014&month_released=October,%202014&month_released=November,%202014&month_released=February,%202015&month_released=April,%202014&replicates.library.biosample.donor.organism.scientific_name=Mus%20musculus&files.file_type=bam'
+    encode_url = 'https://www.encodeproject.org/search/?type=experiment&month_released=December,%202014&assay_term_name=ChIP-seq&month_released=September,%202014&month_released=February,%202014&month_released=June,%202015&month_released=March,%202014&month_released=October,%202014&month_released=November,%202014&month_released=February,%202015&month_released=April,%202014&replicates.library.biosample.donor.organism.scientific_name=Mus%20musculus&files.file_type=bam&assembly=mm10'
     if encode_url:
         for exp in get_assay_JSON(encode_url):
             for f in exp.get('files', None):
