@@ -126,7 +126,7 @@ def get_assay_JSON(url):
 def main():
     import argparse
     parser = argparse.ArgumentParser(
-        description="Module to grab QC metrics from ENCODE pipelines",
+        description="Module to convert ENCODE data to parquet files",
         epilog=EPILOG,
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
