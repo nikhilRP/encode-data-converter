@@ -27,6 +27,6 @@ class Convert extends ADAMPlugin[AlignmentRecord, Tuple2[String, Int]] with Seri
         rdd.adamParquetSave("/user/nikhilrp/encoded-data/mm10/" + reference.getSequenceName() + "/" + args)
         referenceCounts :+ (reference.getSequenceName(), reference.getSequenceLength())
      }
-     return referenceCounts
+     return sc.parallelize(referenceCounts)
    }
 }
