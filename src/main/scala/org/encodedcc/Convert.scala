@@ -19,16 +19,13 @@ class Convert extends ADAMPlugin[AlignmentRecord, Tuple2[String, Int]] with Seri
    override def predicate: Option[(AlignmentRecord) => Boolean] = None
 
    override def run(sc: SparkContext, reads: RDD[AlignmentRecord], args: String): RDD[Tuple2[String, Int]] = {
-     val referenceCounts = reads.map(rec => if (rec.getReadMapped) rec.getContig.getContigName else "unmapped")
-       .map(contigName => (contigName, 1)).reduceByKey(_ + _)
-       
-     val referenceNames = referenceCounts.collect().toMap
-     for(reference <- referenceNames) {
-       if(reference._1 != "unmapped") {
-         def overlapsQuery(read: AlignmentRecord): Boolean = read.getReadMapped && read.getContig.getContigName.toString == reference._1
-         val rdd = reads.filter(overlapsQuery).repartition(1)
-         rdd.adamParquetSave("/user/nikhilrp/encoded-data/hg19/" + reference._1 + "/" + args)
-       }
+     val sd = reads.adamGetSequenceDictionary()
+     var referenceCounts : Array[(String, Int)] = new Array[(String, Int)]()
+     for(reference <- sd.sd.toSAMSequenceDictionary.getSequences()) {
+        def overlapsQuery(read: AlignmentRecord): Boolean = read.getReadMapped && read.getContig.getContigName.toString == reference.getSequenceName()
+        val rdd = reads.filter(overlapsQuery).repartition(160)
+        rdd.adamParquetSave("/user/nikhilrp/encoded-data/mm10/" + reference.getSequenceName() + "/" + args)
+        referenceCounts :+ (reference.getSequenceName(), reference.getSequenceLength())
      }
      return referenceCounts
    }
