@@ -21,7 +21,7 @@ class Convert extends ADAMPlugin[AlignmentRecord, Tuple2[String, Int]] with Seri
    override def run(sc: SparkContext, reads: RDD[AlignmentRecord], args: String): RDD[Tuple2[String, Int]] = {
      val sd = reads.adamGetSequenceDictionary()
      var referenceCounts : Array[(String, Int)] = new Array[(String, Int)]()
-     for(reference <- sd.sd.toSAMSequenceDictionary.getSequences()) {
+     for(reference <- sd.toSAMSequenceDictionary.getSequences()) {
         def overlapsQuery(read: AlignmentRecord): Boolean = read.getReadMapped && read.getContig.getContigName.toString == reference.getSequenceName()
         val rdd = reads.filter(overlapsQuery).repartition(160)
         rdd.adamParquetSave("/user/nikhilrp/encoded-data/mm10/" + reference.getSequenceName() + "/" + args)
